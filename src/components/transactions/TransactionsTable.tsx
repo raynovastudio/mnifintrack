@@ -35,6 +35,7 @@ export function TransactionsTable({ transactions }: TransactionsTableProps) {
               <th className="rounded-tl-xl">Date</th>
               <th>Business</th>
               <th>Type</th>
+              <th>Category</th>
               <th>Description</th>
               <th className="text-right">Amount</th>
               <th className="rounded-tr-xl w-[50px]"></th>
@@ -76,6 +77,11 @@ export function TransactionsTable({ transactions }: TransactionsTableProps) {
                       {transaction.type}
                     </span>
                   </div>
+                </td>
+                <td>
+                  <span className="text-sm text-muted-foreground px-2.5 py-1 rounded-md bg-muted/50 inline-block">
+                    {transaction.category}
+                  </span>
                 </td>
                 <td className="max-w-[300px]">
                   <span className="text-sm text-foreground truncate block">

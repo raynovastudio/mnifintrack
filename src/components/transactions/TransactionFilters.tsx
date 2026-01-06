@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { businesses } from '@/lib/mockData';
+import { businesses, getCategoriesByType } from '@/lib/mockData';
 import { Search, Filter, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -10,6 +10,7 @@ export interface FilterState {
   search: string;
   businessId: string;
   type: string;
+  category: string;
   dateFrom: string;
   dateTo: string;
 }
@@ -31,10 +32,16 @@ export function TransactionFilters({ filters, onFiltersChange }: TransactionFilt
       search: '',
       businessId: 'all',
       type: 'all',
+      category: 'all',
       dateFrom: '',
       dateTo: '',
     });
   };
+
+  // Get categories based on selected type
+  const categories = filters.type && filters.type !== 'all' 
+    ? getCategoriesByType(filters.type as 'income' | 'expense')
+    : [];
 
   return (
     <div className="filter-bar">
@@ -89,7 +96,7 @@ export function TransactionFilters({ filters, onFiltersChange }: TransactionFilt
           {/* Type Filter */}
           <Select
             value={filters.type}
-            onValueChange={(value) => onFiltersChange({ ...filters, type: value })}
+            onValueChange={(value) => onFiltersChange({ ...filters, type: value, category: 'all' })}
           >
             <SelectTrigger className="w-[140px]">
               <SelectValue placeholder="All Types" />
@@ -100,6 +107,26 @@ export function TransactionFilters({ filters, onFiltersChange }: TransactionFilt
               <SelectItem value="expense">Expense</SelectItem>
             </SelectContent>
           </Select>
+
+          {/* Category Filter */}
+          {categories.length > 0 && (
+            <Select
+              value={filters.category}
+              onValueChange={(value) => onFiltersChange({ ...filters, category: value })}
+            >
+              <SelectTrigger className="w-[160px]">
+                <SelectValue placeholder="All Categories" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                {categories.map((cat) => (
+                  <SelectItem key={cat} value={cat}>
+                    {cat}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
 
           {/* Date Range */}
           <div className="flex items-center gap-2">

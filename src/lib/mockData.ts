@@ -1,5 +1,9 @@
 // Mock data for the financial dashboard
 
+export type ExpenseCategory = 'Repairs/Maintenance' | 'Salaries' | 'Purchases' | 'Gifts' | 'Refunds' | 'Transport' | 'Fuel' | 'Others';
+export type IncomeCategory = 'Sales' | 'Returns' | 'Rentals' | 'Deposits' | 'Others';
+export type TransactionCategory = ExpenseCategory | IncomeCategory;
+
 export interface Business {
   id: string;
   name: string;
@@ -17,8 +21,33 @@ export interface Transaction {
   type: 'income' | 'expense';
   amount: number;
   description: string;
+  category: TransactionCategory;
   paymentMethod?: string;
 }
+
+// Category definitions
+export const EXPENSE_CATEGORIES: ExpenseCategory[] = [
+  'Repairs/Maintenance',
+  'Salaries',
+  'Purchases',
+  'Gifts',
+  'Refunds',
+  'Transport',
+  'Fuel',
+  'Others',
+];
+
+export const INCOME_CATEGORIES: IncomeCategory[] = [
+  'Sales',
+  'Returns',
+  'Rentals',
+  'Deposits',
+  'Others',
+];
+
+export const getCategoriesByType = (type: 'income' | 'expense'): TransactionCategory[] => {
+  return type === 'income' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
+};
 
 export const businesses: Business[] = [
   {
@@ -89,41 +118,41 @@ export const businesses: Business[] = [
 
 export const transactions: Transaction[] = [
   // Plantation - Palm Oil
-  { id: 't1', businessId: '1', date: '2025-01-05', type: 'income', amount: 1250000, description: 'Palm oil bulk sale - 50 drums', paymentMethod: 'Bank Transfer' },
-  { id: 't2', businessId: '1', date: '2025-01-04', type: 'expense', amount: 850000, description: 'Monthly workers salaries', paymentMethod: 'Bank Transfer' },
-  { id: 't3', businessId: '1', date: '2025-01-04', type: 'income', amount: 320000, description: 'Palm kernel sales', paymentMethod: 'Cash' },
-  { id: 't4', businessId: '1', date: '2025-01-03', type: 'expense', amount: 150000, description: 'Harvesting tools and cutlasses', paymentMethod: 'Cash' },
+  { id: 't1', businessId: '1', date: '2025-01-05', type: 'income', amount: 1250000, category: 'Sales', description: 'Palm oil bulk sale - 50 drums', paymentMethod: 'Bank Transfer' },
+  { id: 't2', businessId: '1', date: '2025-01-04', type: 'expense', amount: 850000, category: 'Salaries', description: 'Monthly workers salaries', paymentMethod: 'Bank Transfer' },
+  { id: 't3', businessId: '1', date: '2025-01-04', type: 'income', amount: 320000, category: 'Sales', description: 'Palm kernel sales', paymentMethod: 'Cash' },
+  { id: 't4', businessId: '1', date: '2025-01-03', type: 'expense', amount: 150000, category: 'Purchases', description: 'Harvesting tools and cutlasses', paymentMethod: 'Cash' },
 
   // Keke
-  { id: 't5', businessId: '2', date: '2025-01-05', type: 'income', amount: 185000, description: 'Daily Keke returns - 5 units', paymentMethod: 'Cash' },
-  { id: 't6', businessId: '2', date: '2025-01-05', type: 'expense', amount: 68000, description: 'Keke repairs and maintenance', paymentMethod: 'Cash' },
-  { id: 't7', businessId: '2', date: '2025-01-04', type: 'income', amount: 210000, description: 'Daily Keke returns - weekend', paymentMethod: 'Cash' },
-  { id: 't8', businessId: '2', date: '2025-01-04', type: 'expense', amount: 45000, description: 'Fuel costs', paymentMethod: 'Cash' },
+  { id: 't5', businessId: '2', date: '2025-01-05', type: 'income', amount: 185000, category: 'Sales', description: 'Daily Keke returns - 5 units', paymentMethod: 'Cash' },
+  { id: 't6', businessId: '2', date: '2025-01-05', type: 'expense', amount: 68000, category: 'Repairs/Maintenance', description: 'Keke repairs and maintenance', paymentMethod: 'Cash' },
+  { id: 't7', businessId: '2', date: '2025-01-04', type: 'income', amount: 210000, category: 'Sales', description: 'Daily Keke returns - weekend', paymentMethod: 'Cash' },
+  { id: 't8', businessId: '2', date: '2025-01-04', type: 'expense', amount: 45000, category: 'Fuel', description: 'Fuel costs', paymentMethod: 'Cash' },
 
   // Truck
-  { id: 't9', businessId: '3', date: '2025-01-05', type: 'income', amount: 890000, description: 'Haulage - Onitsha trip', paymentMethod: 'Bank Transfer' },
-  { id: 't10', businessId: '3', date: '2025-01-05', type: 'expense', amount: 350000, description: 'Engine repair and servicing', paymentMethod: 'Cash' },
-  { id: 't11', businessId: '3', date: '2025-01-04', type: 'income', amount: 750000, description: 'Haulage - Lagos trip', paymentMethod: 'Bank Transfer' },
-  { id: 't12', businessId: '3', date: '2025-01-03', type: 'expense', amount: 280000, description: 'Diesel fuel', paymentMethod: 'Cash' },
+  { id: 't9', businessId: '3', date: '2025-01-05', type: 'income', amount: 890000, category: 'Sales', description: 'Haulage - Onitsha trip', paymentMethod: 'Bank Transfer' },
+  { id: 't10', businessId: '3', date: '2025-01-05', type: 'expense', amount: 350000, category: 'Repairs/Maintenance', description: 'Engine repair and servicing', paymentMethod: 'Cash' },
+  { id: 't11', businessId: '3', date: '2025-01-04', type: 'income', amount: 750000, category: 'Sales', description: 'Haulage - Lagos trip', paymentMethod: 'Bank Transfer' },
+  { id: 't12', businessId: '3', date: '2025-01-03', type: 'expense', amount: 280000, category: 'Fuel', description: 'Diesel fuel', paymentMethod: 'Cash' },
 
   // PH Prop Management (Rental)
-  { id: 't13', businessId: '4', date: '2025-01-05', type: 'income', amount: 1200000, description: 'Monthly rent collection - Block A', paymentMethod: 'Bank Transfer' },
-  { id: 't14', businessId: '4', date: '2025-01-04', type: 'expense', amount: 120000, description: 'Plumbing repairs', paymentMethod: 'Cash' },
-  { id: 't15', businessId: '4', date: '2025-01-03', type: 'income', amount: 850000, description: 'Monthly rent - Block B', paymentMethod: 'Bank Transfer' },
+  { id: 't13', businessId: '4', date: '2025-01-05', type: 'income', amount: 1200000, category: 'Rentals', description: 'Monthly rent collection - Block A', paymentMethod: 'Bank Transfer' },
+  { id: 't14', businessId: '4', date: '2025-01-04', type: 'expense', amount: 120000, category: 'Repairs/Maintenance', description: 'Plumbing repairs', paymentMethod: 'Cash' },
+  { id: 't15', businessId: '4', date: '2025-01-03', type: 'income', amount: 850000, category: 'Rentals', description: 'Monthly rent - Block B', paymentMethod: 'Bank Transfer' },
 
   // Umuahia (Umunze Prop) (Rental)
-  { id: 't16', businessId: '5', date: '2025-01-05', type: 'income', amount: 450000, description: 'Quarterly rent payment', paymentMethod: 'Bank Transfer' },
-  { id: 't17', businessId: '5', date: '2025-01-04', type: 'expense', amount: 85000, description: 'Painting and renovation', paymentMethod: 'Cash' },
+  { id: 't16', businessId: '5', date: '2025-01-05', type: 'income', amount: 450000, category: 'Rentals', description: 'Quarterly rent payment', paymentMethod: 'Bank Transfer' },
+  { id: 't17', businessId: '5', date: '2025-01-04', type: 'expense', amount: 85000, category: 'Repairs/Maintenance', description: 'Painting and renovation', paymentMethod: 'Cash' },
 
   // MNI Account
-  { id: 't18', businessId: '6', date: '2025-01-05', type: 'income', amount: 2500000, description: 'Contract payment received', paymentMethod: 'Bank Transfer' },
-  { id: 't19', businessId: '6', date: '2025-01-04', type: 'expense', amount: 1800000, description: 'Staff salaries', paymentMethod: 'Bank Transfer' },
-  { id: 't20', businessId: '6', date: '2025-01-03', type: 'income', amount: 1200000, description: 'Consulting fees', paymentMethod: 'Bank Transfer' },
+  { id: 't18', businessId: '6', date: '2025-01-05', type: 'income', amount: 2500000, category: 'Sales', description: 'Contract payment received', paymentMethod: 'Bank Transfer' },
+  { id: 't19', businessId: '6', date: '2025-01-04', type: 'expense', amount: 1800000, category: 'Salaries', description: 'Staff salaries', paymentMethod: 'Bank Transfer' },
+  { id: 't20', businessId: '6', date: '2025-01-03', type: 'income', amount: 1200000, category: 'Sales', description: 'Consulting fees', paymentMethod: 'Bank Transfer' },
 
   // Sand Biz
-  { id: 't21', businessId: '7', date: '2025-01-05', type: 'income', amount: 650000, description: 'Sand delivery - 10 trips', paymentMethod: 'Cash' },
-  { id: 't22', businessId: '7', date: '2025-01-04', type: 'expense', amount: 180000, description: 'Tipper fuel and driver', paymentMethod: 'Cash' },
-  { id: 't23', businessId: '7', date: '2025-01-03', type: 'income', amount: 520000, description: 'Sand delivery - 8 trips', paymentMethod: 'Cash' },
+  { id: 't21', businessId: '7', date: '2025-01-05', type: 'income', amount: 650000, category: 'Sales', description: 'Sand delivery - 10 trips', paymentMethod: 'Cash' },
+  { id: 't22', businessId: '7', date: '2025-01-04', type: 'expense', amount: 180000, category: 'Fuel', description: 'Tipper fuel and driver', paymentMethod: 'Cash' },
+  { id: 't23', businessId: '7', date: '2025-01-03', type: 'income', amount: 520000, category: 'Sales', description: 'Sand delivery - 8 trips', paymentMethod: 'Cash' },
 ];
 
 // Monthly summary data for charts

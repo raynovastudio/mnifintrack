@@ -19,6 +19,7 @@ export default function Transactions() {
     search: '',
     businessId: 'all',
     type: 'all',
+    category: 'all',
     dateFrom: '',
     dateTo: '',
   });
@@ -40,6 +41,11 @@ export default function Transactions() {
 
       // Type filter
       if (filters.type !== 'all' && t.type !== filters.type) {
+        return false;
+      }
+
+      // Category filter
+      if (filters.category !== 'all' && t.category !== filters.category) {
         return false;
       }
 
