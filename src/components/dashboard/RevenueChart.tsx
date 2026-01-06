@@ -43,7 +43,7 @@ export function RevenueChart() {
               axisLine={false} 
               tickLine={false}
               tick={{ fill: 'hsl(220, 9%, 46%)', fontSize: 12 }}
-              tickFormatter={(value) => `$${value / 1000}k`}
+              tickFormatter={(value) => `₦${value / 1000}k`}
             />
             <Tooltip
               contentStyle={{
@@ -52,7 +52,7 @@ export function RevenueChart() {
                 borderRadius: '8px',
                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
               }}
-              formatter={(value: number) => [`$${value.toLocaleString()}`, '']}
+              formatter={(value: number) => [`₦${value.toLocaleString()}`, '']}
               labelStyle={{ fontWeight: 600, marginBottom: 4 }}
             />
             <Legend 
