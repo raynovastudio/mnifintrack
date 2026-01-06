@@ -271,15 +271,15 @@ export default function Reports() {
         {/* Pie Chart - Business Income Breakdown */}
         <div className="chart-container">
           <h3 className="text-lg font-semibold text-foreground mb-4">Income by Business</h3>
-          <div className="h-[300px]">
+          <div className="h-[350px] sm:h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={businessBreakdown}
                   cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={100}
+                  cy="45%"
+                  innerRadius={40}
+                  outerRadius={70}
                   paddingAngle={2}
                   dataKey="value"
                 >
@@ -287,13 +287,24 @@ export default function Reports() {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value: number) => [formatCurrency(value), '']} />
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: 'hsl(0, 0%, 100%)',
+                    border: '1px solid hsl(220, 13%, 91%)',
+                    borderRadius: '8px',
+                  }}
+                  formatter={(value: number) => [formatCurrency(value), '']} 
+                />
                 <Legend
-                  layout="vertical"
-                  align="right"
-                  verticalAlign="middle"
+                  layout="horizontal"
+                  align="center"
+                  verticalAlign="bottom"
                   iconType="circle"
                   iconSize={8}
+                  wrapperStyle={{ paddingTop: 10 }}
+                  formatter={(value) => (
+                    <span className="text-xs sm:text-sm text-foreground">{value}</span>
+                  )}
                 />
               </PieChart>
             </ResponsiveContainer>
