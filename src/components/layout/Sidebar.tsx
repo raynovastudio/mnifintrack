@@ -13,12 +13,16 @@ import {
 import { cn } from '@/lib/utils';
 import { currentUser } from '@/lib/auth';
 
-const navigation = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+const baseNavigation = [
+  { name: 'Dashboard', href: currentUser.role === 'super_admin' ? '/dashboard/super-admin' : '/dashboard/admin', icon: LayoutDashboard },
   { name: 'Businesses', href: '/businesses', icon: Building2 },
   { name: 'Transactions', href: '/transactions', icon: ArrowRightLeft },
-  { name: 'Reports', href: '/reports', icon: FileBarChart },
 ];
+
+// Reports only visible to super admin
+const navigation = currentUser.role === 'super_admin' 
+  ? [...baseNavigation, { name: 'Reports', href: '/reports', icon: FileBarChart }]
+  : baseNavigation;
 
 const bottomNavigation = [
   { name: 'Settings', href: '/settings', icon: Settings },

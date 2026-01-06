@@ -23,9 +23,16 @@ export default function AdminDashboard() {
       <div className="page-header flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="page-title">Dashboard</h1>
-          <p className="page-subtitle">Manage transactions and view your activity</p>
+          <p className="page-subtitle">Enter transactions and manage income & expenditure</p>
         </div>
         <TransactionModal />
+      </div>
+
+      {/* Role Info Card */}
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <p className="text-sm text-blue-900">
+          <span className="font-semibold">Your Role:</span> Data Entry Manager - You can add and manage transactions for all businesses
+        </p>
       </div>
 
       {/* Quick Stats - Simplified */}

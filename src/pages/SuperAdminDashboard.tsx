@@ -26,7 +26,7 @@ export default function SuperAdminDashboard() {
       <div className="page-header flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="page-title">Dashboard</h1>
-          <p className="page-subtitle">Welcome back! Here's your financial overview.</p>
+          <p className="page-subtitle">Complete overview of all business transactions, income, expenses, and profitability</p>
         </div>
         <TransactionModal />
       </div>
